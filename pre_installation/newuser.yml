@@ -7,7 +7,7 @@
   vars: 
     # The user to be created
     NEW_SUDO_USER: 'testuser1'
-    NEW_PASSWORD: '$6$rounds=656000$jmANYKmvbuLhdFcN$Eyp7uYIfonSqr6VVjhRJkn/PueLXbiNngBDTP8hf2cvcEq5BK58.wOeK2dfivrZE8StqBkY9OgjTV.Fg0TEyS/'
+    NEW_PASSWORD: ''
 
   tasks:
     - name: Create a new secondary, non-root, sudo user
