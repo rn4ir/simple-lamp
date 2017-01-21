@@ -1,0 +1,3 @@
+---
+- include: pre_installation/newuser.yml
+- include: pre_installation/secure_ssh.yml

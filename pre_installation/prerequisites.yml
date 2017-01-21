@@ -1,0 +1,19 @@
+---
+- hosts: lampservers
+  remote_user: testuser1
+  become: yes
+  become_method: sudo
+
+  tasks:
+    
+    # First update existing yum repos packages
+    - name: Update yum
+      yum: name=*
+           update_cache=yes
+           state=latest
+
+    # Install the required devel packages
+    - name: Install Core Development Tools
+      yum: name="@Development tools"
+           update_cache=yes
+           state=latest

@@ -1,0 +1,72 @@
+---
+- hosts: lampservers
+  remote_user: testuser1
+  become: yes
+  become_method: sudo
+
+  tasks:
+
+    # First update all existing packages (yum update)
+    - name: Update packages
+      yum: name=*
+           update_cache=yes
+           state=latest
+
+    # Next, install Apache (httpd)
+    - name: Install Apache
+      yum: name=httpd
+           update_cache=yes
+           state=latest
+
+    # Once Apache is installed, enable the service (`systemctl enable httpd`)
+    - name: Enable Apache
+      systemd: name=httpd
+               state=started
+               enabled=yes
+      
+      notify:
+           - open_apache_port
+           - open_apache_secure_port
+           - restart_apache
+
+    ##############
+    #  Optional  #
+    ##############
+    # Copy the Apache config file to the remote server
+    - name: Check if httpd.conf exists
+      stat: path=/etc/httpd/conf/httpd.conf
+      register: conf_exists
+
+    - name: Back up httpd.conf
+      copy: remote_src=True
+            src=/etc/httpd/conf/httpd.conf
+            dest=/etc/httpd/conf/httpd.conf.orig
+      when: conf_exists.stat.exists
+
+    # Copy our Apache configuration to the remote server
+    - name: Copy http.conf to the remote server
+      copy: src=files/httpd.conf
+            dest=/etc/httpd/conf/httpd.conf
+            owner=root 
+            group=root 
+            mode=0644 
+            backup=yes
+      notify: restart_apache
+
+  # Handlers to open ports and restart services
+  handlers:
+    - name: open_apache_port
+      firewalld: port=80/tcp
+                 permanent=true
+                 state=enabled
+                 immediate=yes
+
+    - name: open_apache_secure_port
+      firewalld: port=443/tcp
+                 permanent=true
+                 state=enabled
+                 immediate=true
+
+    - name: restart_apache
+      service: name=httpd
+               state=restarted
