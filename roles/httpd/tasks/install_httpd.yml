@@ -6,13 +6,7 @@
 
   tasks:
 
-    # First update all existing packages (yum update)
-    - name: Update packages
-      yum: name=*
-           update_cache=yes
-           state=latest
-
-    # Next, install Apache (httpd)
+    # install Apache (httpd)
     - name: Install Apache
       yum: name=httpd
            update_cache=yes
@@ -33,6 +27,7 @@
     #  Optional  #
     ##############
     # Copy the Apache config file to the remote server
+
     - name: Check if httpd.conf exists
       stat: path=/etc/httpd/conf/httpd.conf
       register: conf_exists

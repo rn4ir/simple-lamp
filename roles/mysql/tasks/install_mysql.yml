@@ -1,0 +1,41 @@
+---
+- hosts: lampservers
+  remote_user: testuser1
+  become: yes
+  become_method: sudo
+
+  tasks:
+    
+    # Install Mariadb and all the necessary packages
+    - name: Install Mariadb
+      yum: name={{ item }}
+           update_cache=yes
+           state=latest
+      with_items:
+        - mariadb
+        - mariadb-server
+        - mariadb-devel
+        - MySQL-python
+        - php-mysql
+
+    # Enable the MySQL service (`systemctl enable mariadb`)
+    - name: Enable mariadb
+      systemd: name=mariadb
+               state=started
+               enabled=yes
+      
+      notify:
+           - open_mysql_port
+           - restart_mariadb
+
+  # Handlers to open ports and restart services
+  handlers:
+    - name: open_mysql_port
+      firewalld: port=3306/tcp
+                 permanent=true
+                 state=enabled
+                 immediate=yes
+
+    - name: restart_mariadb
+      service: name=mariadb
+               state=restarted
