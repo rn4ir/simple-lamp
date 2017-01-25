@@ -1,11 +1,4 @@
 ---
-- hosts: lampservers
-  remote_user: testuser1
-  become: yes
-  become_method: sudo
-
-  tasks:
-    
     # First update existing yum repos packages
     - name: Update yum
       yum: name=*

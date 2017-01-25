@@ -1,0 +1,9 @@
+    - name: open_mysql_port
+      firewalld: port=3306/tcp
+                 permanent=true
+                 state=enabled
+                 immediate=yes
+
+    - name: restart_mariadb
+      service: name=mariadb
+               state=restarted

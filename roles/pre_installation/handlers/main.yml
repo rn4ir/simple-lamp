@@ -1,0 +1,10 @@
+    - name: open_ssh_port
+      firewalld: port=2201/tcp
+                 permanent=true
+                 state=enabled
+                 immediate=yes
+
+    - name: restart_sshd
+      service: name=sshd
+               state=restarted
+               enabled=yes

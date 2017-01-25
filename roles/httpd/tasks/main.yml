@@ -1,11 +1,4 @@
 ---
-- hosts: lampservers
-  remote_user: testuser1
-  become: yes
-  become_method: sudo
-
-  tasks:
-
     # install Apache (httpd)
     - name: Install Apache
       yum: name=httpd
@@ -39,29 +32,12 @@
       when: conf_exists.stat.exists
 
     # Copy our Apache configuration to the remote server
-    - name: Copy http.conf to the remote server
-      copy: src=files/httpd.conf
-            dest=/etc/httpd/conf/httpd.conf
-            owner=root 
-            group=root 
-            mode=0644 
-            backup=yes
-      notify: restart_apache
 
-  # Handlers to open ports and restart services
-  handlers:
-    - name: open_apache_port
-      firewalld: port=80/tcp
-                 permanent=true
-                 state=enabled
-                 immediate=yes
-
-    - name: open_apache_secure_port
-      firewalld: port=443/tcp
-                 permanent=true
-                 state=enabled
-                 immediate=true
-
-    - name: restart_apache
-      service: name=httpd
-               state=restarted
+    #- name: Copy http.conf to the remote server
+    #  copy: src=files/httpd.conf
+    #        dest=/etc/httpd/conf/httpd.conf
+    #        owner=root 
+    #        group=root 
+    #        mode=0644 
+    #        backup=yes
+    #  notify: restart_apache

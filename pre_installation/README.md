@@ -1,3 +1,0 @@
-- newuser.yml - adds a new user to the remote server with `sudo` privileges
-- prerequisites.yml - update existing yum repos and installs the Core Development Tools
-- secure_ssh.yml - Changes the SSH port (to a custom port), disables root login, edits SELinux to accommodate the new port and opens the custom SSH port
