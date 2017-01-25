@@ -13,5 +13,8 @@ The inventory file 'hosts' defines only a couple of nodes for test purposes:
         192.168.1.97 ansible_port=2201
 
 Notes:
+- To create a new user, follow the script [listed here](https://github.com/rn4ir/ansible-sample-playbooks/blob/master/simple_playbooks/newuser.yml)
 - secure_ssh.yml (under the `pre_installation` role) disables root login, changes the SSH port (to `2201`)
 - a test user (called `testuser1`) was already created and has `sudo` privileges on the remote server
+- After PHP is installed, and test index file (`index.php`) is copied over to the remote server to the DocRoot
+- After the installation is complete, test the server on the browser `http://192.168.1.97`
