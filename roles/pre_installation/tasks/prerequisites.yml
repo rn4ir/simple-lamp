@@ -10,3 +10,9 @@
       yum: name="@Development tools"
            update_cache=yes
            state=latest
+
+    # Install policycoreutils-python for SELinux changes
+    - name: Install policycoreutils-python
+      yum: name=policycoreutils-python
+           update_cache=yes
+           state=latest

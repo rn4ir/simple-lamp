@@ -1,2 +1,2 @@
-- include: secure_ssh.yml
 - include: prerequisites.yml
+- include: secure_ssh.yml
