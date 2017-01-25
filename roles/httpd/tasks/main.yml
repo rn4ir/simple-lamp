@@ -10,7 +10,11 @@
       systemd: name=httpd
                state=started
                enabled=yes
-      
+       
+      notify:
+        - open_apache_port
+        - open_apache_secure_port
+        - restart_apache
 
     ##############
     #  Optional  #
@@ -36,8 +40,3 @@
     #        group=root 
     #        mode=0644 
     #        backup=yes
-    
-    notify:
-      - open_apache_port
-      - open_apache_secure_port
-      - restart_apache

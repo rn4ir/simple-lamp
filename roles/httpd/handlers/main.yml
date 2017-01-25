@@ -1,11 +1,11 @@
     - name: open_apache_port
-      firewalld: port=80/tcp
+      firewalld: service=http
                  permanent=true
                  state=enabled
                  immediate=yes
 
     - name: open_apache_secure_port
-      firewalld: port=443/tcp
+      firewalld: service=https
                  permanent=true
                  state=enabled
                  immediate=true
