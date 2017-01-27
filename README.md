@@ -18,3 +18,6 @@ Notes:
 - a test user (called `testuser1`) was already created and has `sudo` privileges on the remote server
 - After PHP is installed, and test index file (`index.php`) is copied over to the remote server to the DocRoot
 - After the installation is complete, test the server on the browser `http://192.168.1.97`
+  
+TO DO:
+- Simulate `mysql_secure_installation`
