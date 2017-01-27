@@ -20,4 +20,4 @@ Notes:
 - After the installation is complete, test the server on the browser `http://192.168.1.97`
   
 TO DO:
-- Simulate `mysql_secure_installation`
+- `mysql_secure_installation` needs to remove anonymous users for the `hostname` host - example:`test.testserver.com`
