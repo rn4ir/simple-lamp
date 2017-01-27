@@ -1,22 +1,2 @@
----
-    # Install Mariadb and all the necessary packages
-    - name: Install Mariadb
-      yum: name={{ item }}
-           update_cache=yes
-           state=latest
-      with_items:
-        - mariadb
-        - mariadb-server
-        - mariadb-devel
-        - MySQL-python
-        - php-mysql
-
-    # Enable the MySQL service (`systemctl enable mariadb`)
-    - name: Enable mariadb
-      systemd: name=mariadb
-               state=started
-               enabled=yes
-      
-      notify:
-           - open_mysql_port
-           - restart_mariadb
+- include: install.yml
+- include: mysql_secure_installation.yml
